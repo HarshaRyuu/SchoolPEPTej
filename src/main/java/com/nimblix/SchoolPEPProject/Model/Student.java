@@ -1,10 +1,8 @@
 package com.nimblix.SchoolPEPProject.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "students")
@@ -15,6 +13,13 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Student extends User {
+
+    @Id
+
+    private Long id;
+
+    @Column(name = "student_name")
+    private String name;
 
     @Column(name = "class_id")
     private Long classId;
@@ -33,6 +38,9 @@ public class Student extends User {
 
     @Column(name = "registration_no")
     private Long registrationNo;
+
+    @Column(name = "email")
+    private String email;
 
 
 

@@ -1,5 +1,6 @@
 package com.nimblix.SchoolPEPProject.Exception;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +10,12 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+
+@ControllerAdvice
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -43,5 +50,23 @@ public class GlobalExceptionHandler {
         response.put("error", "Internal Server Error");
         response.put("message", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> notFound(ResourceNotFoundException ex) {
+        return build(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, Object>> badRequest(BadRequestException ex) {
+        return build(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    private ResponseEntity<Map<String, Object>> build(HttpStatus status, String msg) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", status.value());
+        body.put("message", msg);
+        return ResponseEntity.status(status).body(body);
     }
 }

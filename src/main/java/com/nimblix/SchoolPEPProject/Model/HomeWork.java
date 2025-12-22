@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "home_work")
 @Getter
@@ -34,6 +36,17 @@ public class HomeWork {
     @Column(name = "updated_time")
     private String updatedTime;
 
+    @Column(name = "shared")
+    private boolean shared;
+
+    @Column(name = "shared_at")
+    private LocalDateTime sharedAt;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name="title")
+    private String title;
 
     @PrePersist
     protected void onCreate(){
@@ -48,4 +61,9 @@ public class HomeWork {
 
 
     }
+
+
+
+
+
 }
