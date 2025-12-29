@@ -20,3 +20,4 @@ public interface StudentService {
 
 //    void updateStudentDetails(Integer studentId, StudentRegistrationRequest request);
 }
+]\
