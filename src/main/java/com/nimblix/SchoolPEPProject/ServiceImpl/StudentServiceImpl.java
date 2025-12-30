@@ -148,7 +148,7 @@ public class StudentServiceImpl implements StudentService {
                         .lastName(student.getLastName())
                         .classId(student.getClassId())
                         .section(student.getSection())
-                        .rollNo(student.getRollNo())
+                        .rollNo(String.valueOf(student.getRollNo()))
                         .status(student.getStatus())
                         .build()
                 )
